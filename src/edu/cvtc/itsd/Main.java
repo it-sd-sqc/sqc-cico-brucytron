@@ -37,11 +37,25 @@ public class Main {
   private static class InputFilter extends DocumentFilter {
     private static final int MAX_LENGTH = 8;
 
+    //Created a for loop to check if the field is numeric
+      // Thanks to https://stackoverflow.com/questions/41270395/identifying-number-in-string-using-for-loops
+      // and the info in Oracle's site.
+    private boolean isNumeric(String input) {
+        for (int i = 0; i < input.length(); i++) {
+            char c = input.charAt(i);
+            if (!Character.isDigit(c)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+
     @Override
     public void insertString(FilterBypass fb, int offset, String stringToAdd, AttributeSet attr)
         throws BadLocationException
     {
-      if (fb.getDocument() != null) {
+      if (fb.getDocument() == null || isNumeric(stringToAdd)) {
         super.insertString(fb, offset, stringToAdd, attr);
       }
       else {
@@ -53,7 +67,7 @@ public class Main {
     public void replace(FilterBypass fb, int offset, int lengthToDelete, String stringToAdd, AttributeSet attr)
         throws BadLocationException
     {
-      if (fb.getDocument() != null) {
+      if (fb.getDocument() == null || isNumeric(stringToAdd)) {
         super.replace(fb, offset, lengthToDelete, stringToAdd, attr);
       }
       else {
