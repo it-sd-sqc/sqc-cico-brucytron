@@ -121,6 +121,8 @@ public class Main {
   static JLabel labelState;
   static JButton buttonAcknowledge;
 
+  static JButton endSession;
+
   // Timer variables //////////////////////////////////////////////////////////
   static java.util.Timer timer;
   static Timeout timeout;
@@ -202,6 +204,7 @@ public class Main {
 
   // Create an idle timer and display the target card /////////////////////////
   private static void scheduleTransitionFrom(String fromCard, JButton toFocus) {
+
     if (timeout != null) {
       timeout.cancel();
     }
@@ -302,6 +305,10 @@ public class Main {
     labelState.setAlignmentX(JComponent.CENTER_ALIGNMENT);
     labelState.setForeground(Color.magenta);
     panelStatus.add(labelState);
+    endSession = new JButton("End Session");
+    endSession.addActionListener(handler);
+    endSession.setAlignmentX(JComponent.CENTER_ALIGNMENT);
+    panelStatus.add(endSession);
 
     panelStatus.add(Box.createVerticalGlue());
 

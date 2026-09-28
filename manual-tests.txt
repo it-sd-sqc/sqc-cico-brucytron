@@ -68,4 +68,10 @@ Use `./build.sh` to build CiCo and `./run.sh` to run it if using the command lin
 ## Expected results
 * nothing should display in the field. 
 
+# Module 5: Ticket 501 - Add button to to skip waiting peroid
+1. Build and run CiCo.
+2. Enter 00000000 into the field and click Update.
+3. Click the button that says End Session to go back to the login screen, 
+   bypassing the waiting period.
+
 
