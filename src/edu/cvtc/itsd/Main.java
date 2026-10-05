@@ -55,8 +55,14 @@ public class Main {
     public void insertString(FilterBypass fb, int offset, String stringToAdd, AttributeSet attr)
         throws BadLocationException
     {
-      if (fb.getDocument() == null || isNumeric(stringToAdd)) {
-        super.insertString(fb, offset, stringToAdd, attr);
+      int newLength = fb.getDocument().getLength() + stringToAdd.length();
+
+      if (isNumeric(stringToAdd) && newLength <= MAX_LENGTH) {
+          super.insertString(fb, offset, stringToAdd, attr);
+
+          if (newLength == MAX_LENGTH) {
+              Main.processCard();
+          }
       }
       else {
         Toolkit.getDefaultToolkit().beep();
@@ -67,8 +73,14 @@ public class Main {
     public void replace(FilterBypass fb, int offset, int lengthToDelete, String stringToAdd, AttributeSet attr)
         throws BadLocationException
     {
-      if (fb.getDocument() == null || isNumeric(stringToAdd)) {
-        super.replace(fb, offset, lengthToDelete, stringToAdd, attr);
+      int newLength = fb.getDocument().getLength() - lengthToDelete + stringToAdd.length();
+
+      if (isNumeric(stringToAdd) && newLength <= MAX_LENGTH) {
+          super.replace(fb, offset, lengthToDelete, stringToAdd, attr);
+
+          if (newLength == MAX_LENGTH) {
+              Main.processCard();
+          }
       }
       else {
         Toolkit.getDefaultToolkit().beep();
@@ -276,12 +288,6 @@ public class Main {
     fieldNumber.setBackground(Color.green);
     fieldNumber.setForeground(Color.magenta);
     panelMain.add(fieldNumber);
-
-    JButton updateButton = new JButton("Update");
-    updateButton.setAlignmentX(JComponent.CENTER_ALIGNMENT);
-    updateButton.addActionListener(new Update());
-    updateButton.setForeground(Color.green);
-    panelMain.add(updateButton);
 
     panelMain.add(Box.createVerticalGlue());
 
