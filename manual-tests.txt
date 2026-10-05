@@ -74,4 +74,12 @@ Use `./build.sh` to build CiCo and `./run.sh` to run it if using the command lin
 3. Click the button that says End Session to go back to the login screen, 
    bypassing the waiting period.
 
+# Module 6: Ticket 601 - Automatically submit card number
 
+## Test steps
+1. Build and run CiCo.
+2. Enter 00000000 into the card number field without pressing Enter or clicking Update.
+
+## Expected results
+* The card number should automatically submit after the eighth digit is entered.
+* The status panel should appear without pressing Enter or clicking Update. 
